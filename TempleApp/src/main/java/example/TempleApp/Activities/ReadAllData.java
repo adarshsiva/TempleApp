@@ -74,23 +74,23 @@ public class ReadAllData extends AppCompatActivity {
                     case R.id.donate_paid:
                         totalLayout.setVisibility(View.VISIBLE);
                         flag = 1;
-                        heading.setText("List of all Donations who paid only");
+                        heading.setText(getResources().getString(R.string.list_paid));
                         break;
                     case R.id.donate_not_paid:
                         totalLayout.setVisibility(View.VISIBLE);
                         flag = 2;
-                        heading.setText("List of all Donations who not paid only");
+                        heading.setText(getResources().getString(R.string.list_not_paid));
                         break;
                     case R.id.pooja_paid:
                         totalLayout.setVisibility(View.VISIBLE);
                         flag = 3;
-                        heading.setText("List of all registrations who paid only");
+                        heading.setText(getResources().getString(R.string.list_reg_paid));
                         break;
 
                     case R.id.pooja_not_paid:
                         totalLayout.setVisibility(View.VISIBLE);
                         flag = 4;
-                        heading.setText("List of all registrations who not paid only");
+                        heading.setText(getResources().getString(R.string.list_reg_notpaid));
                         break;
 
                 }
@@ -122,8 +122,8 @@ public class ReadAllData extends AppCompatActivity {
                 jIndex = x;
 
             dialog = new ProgressDialog(ReadAllData.this);
-            dialog.setTitle("Hey Wait Please...");
-            dialog.setMessage("Fetching all the Values");
+            dialog.setTitle(getString(R.string.wait));
+            dialog.setMessage(getResources().getString(R.string.fetch));
             dialog.show();
         }
 
@@ -143,7 +143,7 @@ public class ReadAllData extends AppCompatActivity {
                         /**
                          * Getting Array named "contacts" From MAIN Json Object
                          */
-                        JSONArray array = jsonObject.getJSONArray("records");
+                        JSONArray array = jsonObject.getJSONArray(getResources().getString(R.string.records));
 
                         /**
                          * Check Length of Array...
@@ -163,33 +163,33 @@ public class ReadAllData extends AppCompatActivity {
 
                                 JSONObject innerObject = array.getJSONObject(jIndex);
 
-                                String id = innerObject.getString("ID");
-                                String name = innerObject.getString("NAME");
+                                String id = innerObject.getString(getResources().getString(R.string.id));
+                                String name = innerObject.getString(getResources().getString(R.string.NAME));
 
                                 String[] str = name.split(getResources().getString(R.string.empty));
 
                                 if (flag == 1) {
-                                    if (id.substring(0, 3).equals("DON") && str[2].equals("PAID")) {
+                                    if (id.substring(0, 3).equals(getResources().getString(R.string.DON)) && str[2].equals(getResources()getString(R.string.paid))) {
                                         model.setName(name);
                                         model.setCountry(id.substring(3, id.length()));
                                         list.add(model);
                                     }
                                 } else if (flag == 2) {
-                                    if (id.substring(0, 3).equals("DON") && str[2].equals("NOT PAID")) {
+                                    if (id.substring(0, 3).equals(getResources()getString(R.string.don)) && str[2].equals(getString(R.string.not_paid))) {
                                         model.setName(name);
                                         model.setCountry(id.substring(3, id.length()));
                                         list.add(model);
 
                                     }
                                 } else if (flag == 3) {
-                                    if (id.substring(0, 3).equals("REG") && str[2].equals("PAID")) {
+                                    if (id.substring(0, 3).equals(getString(R.string.reg)) && str[2].equals(getString(R.string.paid))) {
                                         model.setName(name);
                                         model.setCountry(id.substring(3, id.length()));
                                         list.add(model);
 
                                     }
                                 } else if (flag == 4) {
-                                    if (id.substring(0, 3).equals("DON") && str[2].equals("NOT PAID")) {
+                                    if (id.substring(0, 3).equals(getString(R.string.don)) && str[2].equals(getString(R.string.not_paid))) {
                                         model.setName(name);
                                         model.setCountry(id.substring(3, id.length()));
                                         list.add(model);
@@ -224,7 +224,7 @@ public class ReadAllData extends AppCompatActivity {
 
 
             } else {
-                Toast.makeText(getApplicationContext(), "No data found", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), getResources().getString(R.string.no_data), Toast.LENGTH_LONG).show();
                 heading.setVisibility(TextView.INVISIBLE);
 
             }
